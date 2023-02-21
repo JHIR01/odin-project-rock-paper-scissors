@@ -63,53 +63,39 @@ let playRoundValue = (playerSelection, computerSelection) => {
     }
 }
 
-// const playerSelection = "rock";
-// const computerSelection = getComputerChoice();
-// console.log("This is the computer's choice: " + computerSelection);
-// console.log(playRound(playerSelection, computerSelection));
+// getPlayerTurn() - This function will get the player's move for the round and return it
+let getPlayerTurn = () => {
+    let tempMove = prompt("Please enter in your move.: ");
+    return tempMove;
+}
 
-// game() - This function will run the 'playRound()' function 5 times and will keep score and report a winner or loser at the end of the round
+// game() - This function will call the playRound function inside and play 5 rounds a game
+//      - This will also keep score and report a winner or a loser at the end.
 
 let game = () => {
-    for (let i = 0; i < 5; i++) {
-        let tempMove = prompt("What move are you thinking of?:")
-        if (tempMove.toLowerCase() !== 'rock' || 'paper' || 'scissors'){
-            tempMove = prompt("Please enter in a legal move: ");
-        } else {
-            return playRound(tempMove, computerSelection());
-        }d
+    let roundResult = '';
+    let playerPoints = 0;
+    let computerPoints = 0;
+    let playerTurn = '';
+    let computerTurn = '';
+    for (i = 0; i < 5; i++) {
+        computerTurn = getComputerChoice();
+        playerTurn = getPlayerTurn();
+        roundResult = playRoundValue(playerTurn, computerTurn);
+        if (roundResult === true) {
+            playerPoints++;
+        } else if (roundResult === false) {
+            computerPoints++;
+        } else if (roundResult === false) {
+            computerPoints++;
+            playerPoints++;
+        }
     }
-}
-
-// console.log(game());
-
-// let tempname = prompt("What is your name? :");
-// alert("Hello " + tempname + ".");
-
-// let userMove = prompt("What move will you take?: ");
-// console.log(playRound(userMove, getComputerChoice()));
-
-// promptUser() - This function will ask the user for their move for the round. 
-//      - The function will return the user's move for the round.
-//      - If the user does not enter in a legal move then they will be prompted again.
-let promptUser = () => {
-    let tempMove = prompt("What is your move this round?: ");
-    if (tempMove.toLowerCase() !== 'rock' || 'paper' || 'scissors') {
-        tempMove = prompt("Please enter in a legal move: ");
+    if (playerPoints > computerPoints) {
+        console.log("Player wins!: " + playerPoints + " to " + computerPoints);
     } else {
-        return tempMove;
+        console.log("Computer wins!: " + playerPoints + " to " + computerPoints);
     }
 }
- 
-console.log(promptUser());
 
-// checkMove() - This function is a loop that won't break until the user enter in a recognizable move.
-let checkMove = () => {
-    let userMove = '';
-    while (userMove.toLowerCase() !== 'rock' || 'paper' || 'scissors') {
-        userMove = prompt("Please enter in a legal move!: ");
-    }
-    return userMove;
-}
-
-checkMove();
+game();
